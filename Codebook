@@ -1,0 +1,60 @@
+Codebook for Course Project
+By: Sowmya Ragothaman
+---
+
+Project Purpose: Analyze the Human Activity Recognition Using Smartphones Data Set by tidying up the data.
+
+Raw data: The full description of the data set can be found on UCI's website: http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones.
+Here is the actual data: https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
+
+Look at the README to see what the code in run_analysis.R should do based on the 5 steps provided by the project instructions.
+
+After downloading the dataset from above, here is a general guide to the variables created:
+
+1. Assigning raw data to variables: 
+features <- features.txt (561 rows, 2 columns)
+The accelerometer and gyroscope 3-axial raw signals tAcc-XYZ and tGyro-XYZ are the basis for the features.
+activities <- activity_labels.txt (6 rows, 2 columns)
+These are the activities performed with its corresponding codes (or labels) and measurements. 
+subjecttest <- test/subject_test.txt (2947 rows, 1 column)
+This is the test data of 9/30 volunteer test subjects being observed
+xtest <- test/X_test.txt (2947 rows, 561 columns)
+This is the features test data recorded by UCI.
+ytest <- test/y_test.txt (2947 rows, 1 column)
+This is the test data of activities’ code labels
+subjecttrain <- test/subject_train.txt (7352 rows, 1 column)
+This is the train data of 21/30 volunteer subjects being observed
+xtrain <- test/X_train.txt (7352 rows, 561 columns)
+This is the features train data
+ytrain <- test/y_train.txt (7352 rows, 1 column)
+This is the train data of activities’ code labels
+
+2. Merging variables:
+Uses rbind(): 
+x (10229 rows, 561 columns) merges xtrain and xtest
+y (10299 rows, 1 column) merges ytrain and ytest
+Subject (10299 rows, 1 column) merges subjecttrain and subjecttest
+Uses cbind():
+data (10299, 563 columns) merges Subject, y, and x
+
+3. Extract key measurements:
+cleanned data (10299 rows, 88 columns) is created by selecting means and standard deviations from the columns 
+"subject" and "code" from the "data" variable
+
+4. Assign descriptive names to activities:
+Numbers in the code column of "cleaneddata" are replaced with the name of each corresponding activity
+Then, each label is replaced with its corresponding full descriptive name:
+
+code column in TidyData renamed into activities
+Acc replaced by Accelerometer
+Gyro  replaced by Gyroscope
+Mag replaced by Magnitude
+BodyBody replaced by Body
+Mean, STD, and Frequency replace their respective abbreviations
+TimeBody, Gravity, and Angle replace their respective abbrevations/capitalization errors
+Anything starting with an f or t is respectively replaced by Frequency and Time.
+All start with character t in column’s name replaced by Time
+
+5. Create a second independent set with variable means only:
+indeptinydata (180 rows, 88 columns) summarizes cleaneddata by selecting only the means of each variable for each activity
+Export indeptinydata into "Final_Data_set.txt"
